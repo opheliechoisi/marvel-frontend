@@ -1,0 +1,78 @@
+* {
+  font-family: "roboto condensed", sans-serif;
+}
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+.home-container {
+  position: relative;
+  margin: 0;
+  height: 100vh;
+  width: 100%;
+  padding: 0;
+  color: white;
+  background-image: url("../assets/ironMan2.jpg");
+  background-position: center;
+  background-size: cover;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 0; /* plus d’arrondi */
+  box-shadow: none; /* plus d’ombre */
+}
+
+/* Overlay sombre */
+.home-container::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 0;
+}
+/* Contenu au-dessus de l’overlay */
+.home-container > * {
+  position: relative;
+  z-index: 1;
+}
+
+.home-container h1 {
+  text-align: center;
+  margin-bottom: 40px;
+  font-size: 3.5rem;
+  text-shadow: 2px 2px 5px #000;
+}
+
+.logo-marvel {
+  display: flex;
+  justify-content: flex-start;
+  padding: 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  margin-top: 15px;
+}
+
+.logo-marvel img {
+  height: 80px;
+}
+
+@keyframes pulse {
+  0% {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+  50% {
+    background-color: rgba(255, 0, 0, 0.106);
+  }
+  100% {
+    background-color: rgba(0, 0, 0, 0.3);
+  }
+}

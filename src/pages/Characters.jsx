@@ -1,6 +1,7 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom"; // <-- ajoute useNavigate ici
+import FavoriteButton from "../components/FavoritesButton";
 
 const Characters = () => {
   const [data, setData] = useState([]);
@@ -10,6 +11,8 @@ const Characters = () => {
 
   const API_URL = "https://site--marvel-backend--zn4bx7lhq62j.code.run";
   const limit = 100;
+
+  const navigate = useNavigate(); // <-- initialise useNavigate
 
   useEffect(() => {
     const fetchData = async () => {
@@ -28,11 +31,24 @@ const Characters = () => {
 
     fetchData();
   }, [search, page]);
+
   return isLoading ? (
     <p>En cours de chargement...</p>
   ) : (
     <main>
       <h1>Personnages Marvel</h1>
+
+      {/* Bouton retour */}
+      <button
+        onClick={() => navigate("/")} // retourne à la page home
+        style={{
+          marginBottom: "1rem",
+          padding: "0.5rem 1rem",
+          cursor: "pointer",
+        }}
+      >
+        ← Retour à l’accueil
+      </button>
 
       {/**************       BARRE DE RECHERCHE PERSONNAGE      ***************/}
       <input
@@ -50,18 +66,19 @@ const Characters = () => {
         .map((character) => {
           return (
             <Link key={character._id} to={`/comics/${character._id}`}>
-              <article>
+              <article id={`fav-${character._id}`}>
                 <p>{character.name}</p>
                 <img
                   src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
                   alt={character.name}
-                  //style={{ width: "200px", borderRadius: "12px" }}
                 />
                 <p>{character.description}</p>
+                <FavoriteButton itemId={character._id} type="character" />
               </article>
             </Link>
           );
         })}
+
       {/************               PAGINATION BUTTONS              ************/}
       <div style={{ marginTop: "20px" }}>
         {page > 0 && (
@@ -74,4 +91,5 @@ const Characters = () => {
     </main>
   );
 };
+
 export default Characters;

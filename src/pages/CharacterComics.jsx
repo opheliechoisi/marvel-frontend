@@ -13,7 +13,7 @@ const CharacterComics = () => {
   const API_URL = "https://site--marvel-backend--zn4bx7lhq62j.code.run";
 
   useEffect(() => {
-    const fetchComics = async () => {
+    const fetchData = async () => {
       try {
         const response = await axios.get(`${API_URL}/comics/${characterId}`);
         console.log(response.data);
@@ -25,7 +25,7 @@ const CharacterComics = () => {
         setIsLoading(false);
       }
     };
-    fetchComics();
+    fetchData();
   }, [characterId]);
 
   if (isLoading) return <p>Chargement des comics...</p>;

@@ -1,22 +1,27 @@
 import { Link } from "react-router-dom";
+import "./Css/Home.css";
+import HeroSection from "../components/HeroSection";
+import ironMan2 from "../assets/ironMan2.jpg";
+import logoMarvel from "../assets/logoMarvel.png";
 
 const Home = () => {
   return (
-    <div className="home-container">
-      <h1>Bienvenue dans l'univers Marvel</h1>
+    <main
+      className="home-container"
+      style={{
+        backgroundImage: `url(${ironMan2})`,
+        backgroundSize: "cover",
+        backgroundPosition: "center",
+      }}
+    >
+      <div className="logo-marvel">
+        <img src={logoMarvel} alt="Logo Marvel" />
+      </div>
 
-      <Link to="/characters">
-        <button>Personnages</button>
-      </Link>
-
-      <Link to="/comics">
-        <button>Comics</button>
-      </Link>
-
-      <Link to="/favorites">
-        <button>Favoris</button>
-      </Link>
-    </div>
+      {/* 👇 HeroSection en-dessous */}
+      <HeroSection />
+    </main>
   );
 };
+
 export default Home;
