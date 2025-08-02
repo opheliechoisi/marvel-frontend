@@ -1,18 +1,17 @@
 import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link, useNavigate } from "react-router-dom"; // <-- ajoute useNavigate ici
+import { Link } from "react-router-dom";
 import FavoriteButton from "../components/FavoritesButton";
+
+import ironMan2 from "../assets/ironMan2.jpg";
 
 const Characters = () => {
   const [data, setData] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [page, setPage] = useState(0);
-
-  const API_URL = "https://site--marvel-backend--zn4bx7lhq62j.code.run";
   const limit = 100;
-
-  const navigate = useNavigate(); // <-- initialise useNavigate
+  const API_URL = "https://site--marvel-backend--zn4bx7lhq62j.code.run";
 
   useEffect(() => {
     const fetchData = async () => {
@@ -25,7 +24,7 @@ const Characters = () => {
         setData(response.data);
         setIsLoading(false);
       } catch (error) {
-        console.log("Erreur lors de la récupération des personnages :", error);
+        console.error("Erreur de chargement :", error);
       }
     };
 
@@ -33,60 +32,81 @@ const Characters = () => {
   }, [search, page]);
 
   return isLoading ? (
-    <p>En cours de chargement...</p>
+    <p>Chargement...</p>
   ) : (
-    <main>
-      <h1>Personnages Marvel</h1>
-
-      {/* Bouton retour */}
-      <button
-        onClick={() => navigate("/")} // retourne à la page home
-        style={{
-          marginBottom: "1rem",
-          padding: "0.5rem 1rem",
-          cursor: "pointer",
-        }}
-      >
-        ← Retour à l’accueil
-      </button>
-
-      {/**************       BARRE DE RECHERCHE PERSONNAGE      ***************/}
-      <input
-        type="text"
-        placeholder="Recherchez un personnage"
-        value={search}
-        onChange={(event) => {
-          setSearch(event.target.value);
-          setPage(0);
-        }}
+    <main className="characters-hero">
+      {/* Background fixe flouté */}
+      <div
+        className="background-fixed"
+        style={{ backgroundImage: `url(${ironMan2})` }}
       />
-      {data.results
-        .slice()
-        .sort((a, b) => a.name.localeCompare(b.name))
-        .map((character) => {
-          return (
-            <Link key={character._id} to={`/comics/${character._id}`}>
-              <article id={`fav-${character._id}`}>
-                <p>{character.name}</p>
-                <img
-                  src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
-                  alt={character.name}
-                />
-                <p>{character.description}</p>
-                <FavoriteButton itemId={character._id} type="character" />
-              </article>
-            </Link>
-          );
-        })}
+      {/* Overlay sombre pour le contraste */}
 
-      {/************               PAGINATION BUTTONS              ************/}
-      <div style={{ marginTop: "20px" }}>
-        {page > 0 && (
-          <button onClick={() => setPage(page - 1)}>← Page précédente</button>
-        )}
-        {data.results.length === limit && (
-          <button onClick={() => setPage(page + 1)}>Page suivante →</button>
-        )}
+      <div className="overlay" />
+      <div className="characters-content">
+        <h1 className="hero-title">Explorez les Personnages Marvel</h1>
+        <p className="hero-text">
+          Recherchez vos héros préférés et découvrez leurs histoires
+          légendaires.
+        </p>
+
+        <div className="hero-buttons">
+          <Link to="/">
+            <button className="hero-button">← Accueil</button>
+          </Link>
+        </div>
+
+        <input
+          type="text"
+          placeholder="Recherchez un personnage"
+          value={search}
+          onChange={(e) => {
+            setSearch(e.target.value);
+            setPage(0);
+          }}
+          className="search-bar"
+        />
+
+        <div className="characters-grid">
+          {data.results
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map((character) => (
+              <div
+                key={character._id}
+                id={`fav-${character._id}`}
+                className="character-card"
+                style={{ position: "relative" }}
+              >
+                {/* Bouton Favori */}
+                <FavoriteButton itemId={character._id} type="character" />
+
+                <Link
+                  to={`/comics/${character._id}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
+                >
+                  <img
+                    src={`${character.thumbnail.path}.${character.thumbnail.extension}`}
+                    alt={character.name}
+                  />
+                  <h2>{character.name}</h2>
+                  <p>
+                    {character.description
+                      ? character.description
+                      : "Description indisponible"}
+                  </p>
+                </Link>
+              </div>
+            ))}
+        </div>
+
+        <div className="pagination">
+          {page > 0 && (
+            <button onClick={() => setPage(page - 1)}>← Précédent</button>
+          )}
+          {data.results.length === limit && (
+            <button onClick={() => setPage(page + 1)}>Suivant →</button>
+          )}
+        </div>
       </div>
     </main>
   );

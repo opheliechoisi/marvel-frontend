@@ -23,7 +23,7 @@ const FavoriteButton = ({ itemId, type }) => {
 
       if (!cardElement) {
         console.error(`Élément avec id fav-${itemId} non trouvé dans le DOM`);
-        return; // stoppe la fonction pour éviter les erreurs suivantes
+        return;
       }
 
       const name = cardElement.querySelector("p")?.textContent || "Nom inconnu";
@@ -33,10 +33,9 @@ const FavoriteButton = ({ itemId, type }) => {
 
       if (!img) {
         console.error(`Image non trouvée dans l'élément fav-${itemId}`);
-        return; // stoppe pour éviter erreur sur le split
+        return;
       }
 
-      // Séparer path et extension (exemple : https://.../image.jpg => path = https://.../image, extension = jpg)
       const lastDotIndex = img.lastIndexOf(".");
       const path = img.substring(0, lastDotIndex);
       const extension = img.substring(lastDotIndex + 1);
@@ -57,9 +56,31 @@ const FavoriteButton = ({ itemId, type }) => {
     setIsFavorite(!isFavorite);
   };
 
+  const styles = {
+    button: {
+      all: "unset",
+      position: "absolute",
+      top: "8px",
+      right: "8px",
+      fontSize: "20px",
+      color: isFavorite ? "#ff3f34" : "white",
+      backgroundColor: "transparent",
+      cursor: "pointer",
+      zIndex: 2,
+    },
+    star: {
+      fontSize: "20px",
+    },
+  };
+
   return (
-    <button onClick={toggleFavorite} style={{ fontSize: "1.3rem" }}>
-      {isFavorite ? "⭐ Retirer des favoris" : "☆ Ajouter aux favoris"}
+    <button
+      onClick={toggleFavorite}
+      style={styles.button}
+      aria-pressed={isFavorite}
+    >
+      <span style={styles.star}>{isFavorite ? "⭐" : "☆"}</span>
+      {/*{isFavorite ? "Retirer des favoris" : "Ajouter aux favoris"}*/}
     </button>
   );
 };

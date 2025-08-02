@@ -1,9 +1,11 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom"; // <-- Import
+import { useNavigate } from "react-router-dom";
+import FavoritesButton from "../components/FavoritesButton";
+import ironMan2 from "../assets/ironMan2.jpg";
 
 const Favorites = () => {
   const [favorites, setFavorites] = useState([]);
-  const navigate = useNavigate(); // <-- Initialise navigate
+  const navigate = useNavigate();
 
   useEffect(() => {
     try {
@@ -27,51 +29,64 @@ const Favorites = () => {
   };
 
   return (
-    <div>
-      <h2>⭐ Vos Favoris</h2>
+    <main className="characters-hero">
+      {/* Background fixe flouté + overlay */}
+      <div
+        className="background-fixed"
+        style={{ backgroundImage: `url(${ironMan2})` }}
+      />
+      <div className="overlay" />
 
-      {/* Bouton retour */}
-      <button
-        onClick={() => navigate("/")}
-        style={{
-          marginBottom: "1rem",
-          padding: "0.5rem 1rem",
-          cursor: "pointer",
-        }}
-      >
-        ← Retour à l’accueil
-      </button>
+      <div className="characters-content">
+        <h1 className="hero-title">Vos Favoris</h1>
 
-      {favorites.length === 0 ? (
-        <p>Aucun favori enregistré.</p>
-      ) : (
-        favorites.map((fav) => (
-          <article
-            key={fav.id}
-            style={{
-              border: "1px solid #ccc",
-              padding: "10px",
-              marginBottom: "1rem",
-            }}
-          >
-            <h3>{fav.name}</h3>
-            {fav.thumbnail && fav.thumbnail.path ? (
-              <img
-                src={`${fav.thumbnail.path}.${fav.thumbnail.extension}`}
-                alt={fav.name}
-              />
-            ) : (
-              <p>Pas d’image disponible</p>
-            )}
+        <div className="hero-buttons">
+          <button className="hero-button" onClick={() => navigate("/")}>
+            ← Retour à l’accueil
+          </button>
+        </div>
 
-            <p>{fav.description || "Pas de description disponible."}</p>
-            <button onClick={() => handleRemoveFavorite(fav.id)}>
-              🗑 Supprimer des favoris
-            </button>
-          </article>
-        ))
-      )}
-    </div>
+        {favorites.length === 0 ? (
+          <p className="hero-text">Aucun favori enregistré.</p>
+        ) : (
+          <div className="characters-grid">
+            {favorites.map((fav) => (
+              <article
+                key={fav.id}
+                className="character-card"
+                id={`fav-${fav.id}`}
+              >
+                <div className="card-top">
+                  {fav.thumbnail?.path ? (
+                    <img
+                      src={`${fav.thumbnail.path}.${fav.thumbnail.extension}`}
+                      alt={fav.name}
+                    />
+                  ) : (
+                    <p>Pas d’image disponible</p>
+                  )}
+
+                  <h3>{fav.name || fav.title}</h3>
+
+                  <p>{fav.description || "Pas de description disponible."}</p>
+
+                  <FavoritesButton itemId={fav.id} type={fav.type} />
+                </div>
+
+                <div className="card-bottom">
+                  <button
+                    className="hero-button-remove"
+                    onClick={() => handleRemoveFavorite(fav.id)}
+                  >
+                    🗑 Supprimer
+                  </button>
+                </div>
+              </article>
+            ))}
+          </div>
+        )}
+      </div>
+    </main>
   );
 };
 

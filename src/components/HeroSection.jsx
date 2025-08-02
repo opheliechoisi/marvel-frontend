@@ -2,14 +2,15 @@ import React from "react";
 //import logoAvenger1 from "../assets/logoAvenger1.png";
 import ironMan2 from "../assets/ironMan2.jpg";
 import { Link } from "react-router-dom";
-import "../pages/Css/HeroSection.css";
 
 const HeroSection = () => {
   return (
     <section style={{ ...styles.hero, backgroundImage: `url(${ironMan2})` }}>
       <div style={styles.overlay} />
       <div style={styles.content}>
-        <h1 style={styles.title}>Bienvenue dans l'univers Marvel</h1>
+        <h1 style={styles.title} className="hero-title">
+          Bienvenue dans l'univers Marvel
+        </h1>
         <p style={styles.text}>
           Découvrez les héros légendaires et leurs histoires épiques.
         </p>
@@ -54,9 +55,10 @@ const styles = {
     /*margin: "0 auto", // 👈 centre horizontalement*/
     zIndex: 2,
     position: "relative",
-    backgroundColor: "rgba(0, 0, 0, 0.6)",
-    padding: "30px",
-    borderRadius: "15px",
+    backgroundColor: "rgba(0, 0, 0, 0.3)",
+    backdropFilter: "blur(8px)",
+    padding: "40px",
+    borderRadius: "25px",
   },
 
   title: {

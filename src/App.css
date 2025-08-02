@@ -1,4 +1,233 @@
+* {
+  font-family: "roboto condensed", sans-serif;
+}
 body {
   margin: 0;
   padding: 0;
+}
+
+.background-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  filter: blur(8px);
+  z-index: -2;
+}
+.background-blur {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: url("ton-image.jpg");
+  background-size: cover;
+  background-position: center;
+  filter: blur(10px);
+  z-index: -1;
+}
+.overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.5);
+  z-index: -1;
+}
+
+.hero-title {
+  font-size: 3rem;
+  color: #ff3f34;
+  text-shadow: 2px 2px 0 #000;
+  text-align: center;
+}
+
+.hero-text {
+  font-size: 1.2rem;
+  text-align: center;
+  margin: 1rem 0;
+}
+
+.hero-buttons {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.hero-button {
+  width: 150px;
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgb(0, 0, 0);
+  transition: transform 0.3s ease;
+}
+.hero-button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.515);
+}
+
+.hero-button-remove {
+  background-color: #ff3f34;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 8px 12px;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.2s;
+}
+
+.hero-button-remove:hover {
+  background-color: #ff1100;
+  transform: scale(1.05);
+}
+
+.search-bar {
+  display: block;
+  margin: 0 auto 30px;
+  padding: 12px;
+  border-radius: 10px;
+  width: 100%;
+  max-width: 500px;
+  border: none;
+  font-size: 1rem;
+}
+.characters-content {
+  position: relative;
+  z-index: 1;
+  max-width: 1200px;
+  width: 100%;
+  background-color: rgba(0, 0, 0, 0.307);
+  padding: 40px;
+  border-radius: 20px;
+  backdrop-filter: blur(50px);
+}
+.characters-hero {
+  position: relative;
+  min-height: 100vh;
+  color: white;
+
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow: hidden;
+}
+
+.characters-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 50px;
+  align-items: stretch;
+}
+.character-card {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 15px;
+  padding: 1rem;
+  height: 100%;
+  min-height: 500px;
+  position: relative;
+  overflow: hidden;
+}
+.character-card h2 {
+  text-align: center;
+  margin: 10px;
+  color: white;
+}
+
+.card-top {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-top: 10px;
+}
+
+.card-bottom {
+  margin-top: auto;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.character-card:hover {
+  transform: scale(1.03);
+}
+
+.favorite-icon-button {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  background: transparent;
+  border: none;
+  font-size: 22px;
+  cursor: pointer;
+  z-index: 2;
+}
+
+.character-card img {
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 20px;
+  height: 300px;
+  object-fit: cover;
+}
+.character-card:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.515);
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 30px;
+}
+.pagination button {
+  width: 150px;
+  margin-top: 20px;
+  padding: 12px 24px;
+  background-color: transparent;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgb(0, 0, 0);
+  transition: transform 0.3s ease;
+}
+.pagination button:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.515);
+}
+.search-bar {
+  background-color: white;
+  cursor: pointer;
+  box-shadow: 0 4px 10px rgb(0, 0, 0);
+  transition: transform 0.3s ease;
+  color: #ff3f34;
+  border: 0, 5px solid;
+}
+.search-bar:hover {
+  transform: scale(1.05);
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.515);
+}
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

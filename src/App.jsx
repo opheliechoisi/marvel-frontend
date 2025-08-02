@@ -1,13 +1,8 @@
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 
-//IMPORT COMPONENTS
-import Header from "./components/Header";
-
 //IMPORT PAGES
 import Home from "./pages/Home";
-//import Signup from "./pages/Signup";
-//import Login from "./pages/Login";
 import Characters from "./pages/Characters";
 import Comics from "./pages/Comics";
 import Favorites from "./pages/Favorites";
